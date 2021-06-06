@@ -58,6 +58,8 @@
             color: #6A6A6A;
             margin-bottom: 1em;
         }
+        a{ color: blue; }
+        a:hover{ color: red; }
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-198875216-1"></script>
@@ -88,13 +90,13 @@
         <h4>Google Meet</h4>
         <p>Google Meet登入後，會在畫面左下角看到雅婷逐字稿的圖示，直接點選開啟就可以馬上使用，相當方便。</p>
         <h4>ZOOM、FB視訊、Youtube等網路直播或影片</h4>
-        <p>我用PC桌機、NB筆電(作業系統為WIN)、macbook筆電這3個裝置來說明，但我先說明一下原理：</p>
+        <p>我用<a href="#pc">PC桌機</a>、<a href="#nb">NB筆電(作業系統為WIN)</a>、<a href="#mac">macbook筆電</a>這3個裝置來說明，但我先說明一下原理：</p>
         <h5>原理說明</h5>
         <p>音源輸出(Audio Output)：就是喇叭，放出影片的聲音。</p>
         <p>音源輸入(Audio Input)：就是麥克風，把聲音收進來。</p>
         <p>所以我們要做的事情，就是把ZOOM、FB視訊、Youtube等網路直播或影片放出來的聲音，從喇叭輸出轉到麥克風輸入，給雅婷逐字稿跑語音辨識文字。</p>
         <p>這個概念就叫做迴路(LoopBack)。</p>
-        <h5>一、PC桌機</h5>
+        <a name="pc"></a><h5>一、PC桌機</h5>
         <p>這部分最好做，直接用音源線做硬體的LoopBack。</p>
         <p>
             <ol>
@@ -115,7 +117,7 @@
             <img src="img/pc_03.png" alt="音源線插上麥克風孔及喇叭孔">
             <figcaption>音源線插上麥克風孔及喇叭孔</figcaption>
         </figure>
-        <h5>二、NB筆電(作業系統為WIN)</h5>
+        <a name="nb"></a><h5>二、NB筆電(作業系統為WIN)</h5>
         <p>我們要先安裝一個虛擬音源線VB-CABLE Driver，它是一款免費的虛擬音源線裝置，安裝完成以後，在「聲音」的「播放」選項會新增一個虛擬裝置「CABLE Input」，「錄音」的選項會新增一個虛擬裝置「CABLE Output」，這樣子就可以做一個LoopBack。</p>
         <p>
             <ol>
@@ -165,6 +167,8 @@
                 </li>
             </ol>
         </p>
+        <a name="mac"></a><h5>三、macbook筆電(待續)</h5>
+        
     </div>
 </body>
 </html>
