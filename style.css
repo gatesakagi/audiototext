@@ -74,8 +74,26 @@ a:hover{ color: red; }
 .tab{
     padding: 1em;
     border: 1px solid #ccc;
+    margin-bottom: 5em;
 }
 @media only screen and (min-width: 768px) {
     .container{ max-width: 960px; }
     .navtabitem{ flex: 0 0 33.3333%; }
+}
+footer{
+    background-color: #333;
+    color: #FFF;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+footer p{
+    margin: 0.5em 0;
+}
+footer a,
+footer a:hover{
+    color: #FFF;
+    text-decoration: underline;
 }
