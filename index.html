@@ -6,86 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>赤木於語音辨識文字經驗分享</title>
     <meta name="description" content="雅婷逐字稿要怎麼應用到不同裝置的影片轉成文字，甚至可以用在線上課程或直播呢?">
-    <meta name="keywords" content="雅婷逐字稿,語音辨識文字,字幕,逐字稿,語音轉字幕,loopback,線上課程轉字幕,直播轉字幕,影片轉字幕">
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            font-size: 62.5%;
-        }
-        body{
-            font-size: 1.7rem;
-            line-height: 1.75;
-            color: #1a1a1a;
-            font-weight: normal;
-        }
-        body > *{
-            font-family: 'PingFang TC','Heiti TC','LantingHei TC','LiHei Pro','微軟正黑體','Noto Sans TC','Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
-        }
-        .container{
-            width: 100%;
-            max-width: 100%;
-            margin: auto;
-            padding: 0 30px;
-        }
-        @media only screen and (min-width: 768px) {
-            .container{ max-width: 960px; }
-        }
-        h1,h2,h3,h4,h5,h6{
-            line-height: 1.5;
-            margin: 0 0 0.5em;
-        }
-        h1{ font-size: 3.2rem; }
-        h2{ font-size: 2.8rem; }
-        h3{ font-size: 2.4rem; }
-        h4{ font-size: 2.2rem; }
-        h5{ font-size: 2.0rem; }
-        h6{ font-size: 1.8rem; }
-        p{ margin-bottom: 1em; }
-        ol, ul{ margin-left: 2em; }
-        img{
-            max-width: 100%;
-            vertical-align: top;
-        }
-        figure{
-            text-align: center;
-        }
-        figcaption{
-            font-size: 1.6rem;
-            color: #6A6A6A;
-            margin-bottom: 1em;
-        }
-        a{ color: blue; }
-        a:hover{ color: red; }
-        .navtab{
-            display: flex;
-            border: 1px solid #ccc;
-            border-bottom: none;
-            color: #000;
-            background-color: #f1f1f1;
-        }
-        .navtabitem{
-            flex: 0 0 33.3333%;
-            text-align: center;
-            padding: 1em 0;
-            cursor: pointer;
-        }
-        .navtabitem.active{
-            color: #FFF;
-            background-color: #616161;
-        }
-        .navtabitem:hover{
-            color: #FFF;
-            background-color: #ccc;
-        }
-        .tab{
-            border: 1px solid #ccc;
-        }
-        
-    </style>
+    <meta name="keywords" content="雅婷逐字稿,語音辨識文字,字幕,逐字稿,語音轉字幕,loopback,聲音迴路,迴路,線上課程轉字幕,直播轉字幕,影片轉字幕">
+    <link rel="stylesheet" href="style.css">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-198875216-1"></script>
     <script>
@@ -115,22 +37,22 @@
         <h4>Google Meet</h4>
         <p>Google Meet登入後，會在畫面左下角看到雅婷逐字稿的圖示，直接點選開啟就可以馬上使用，相當方便。</p>
         <h4>ZOOM、FB視訊、Youtube等網路直播或影片</h4>
-        <p>我用<a href="#pc">PC桌機</a>、<a href="#nb">NB筆電(作業系統為WIN)</a>、<a href="#mac">macbook/iMac</a>這3個裝置來說明，但我先說明一下原理：</p>
-        <h5>原理說明</h5>
-        <p>音源輸出(Audio Output)：就是喇叭，放出影片的聲音。</p>
-        <p>音源輸入(Audio Input)：就是麥克風，把聲音收進來。</p>
-        <p>所以我們要做的事情，就是把ZOOM、FB視訊、Youtube等網路直播或影片放出來的聲音，從喇叭輸出轉到麥克風輸入，給雅婷逐字稿跑語音辨識文字。</p>
-        <p>這個架構就叫做迴路(LoopBack)。</p>
-
+        <h5>架構說明</h5>
+        <p><strong>音源輸出(Audio Output)</strong>：就是喇叭，放出影片的聲音。</p>
+        <p><strong>音源輸入(Audio Input)</strong>：就是麥克風，把聲音收進來。</p>
+        <p>在這邊我們要把整個聲音的傳遞跟接收，製作成一個聲音迴路(LoopBack)，也就是把輸出的聲音，回傳到電腦的麥克風內。</p>  
+        <p>也就是說，把ZOOM、FB視訊、Youtube等網路直播或影片放出來的聲音，從喇叭輸出轉到麥克風輸入，給雅婷逐字稿跑語音辨識文字。</p>
+        <p>以下我分3種裝置逐一說明：</p>
         <nav class="navtab">
             <div class="navtabitem" data-target="pc">PC桌機</div>
             <div class="navtabitem" data-target="nb">NB筆電(作業系統為WIN)</div>
-            <div class="navtabitem" data-target="mac">macbook/iMac</div>
+            <div class="navtabitem" data-target="mac">Mac裝置(MacBook/iMac)</div>
         </nav>
 
 
         <section id="pc" class="tab">
-            <p>這部分最好做，直接用音源線做硬體的LoopBack。</p>
+            <h4>PC桌機</h4>
+            <p>這部分最好做，直接用音源線做硬體的聲音迴路(LoopBack)。</p>
             <p>
                 <ol>
                     <li>找1條3.5mm音源線(公對公)分別插在麥克風孔跟喇叭孔就完工了!!</li>
@@ -153,7 +75,8 @@
         </section> 
         
         <section id="nb" class="tab">
-            <p>我們要先安裝一個虛擬音源線VB-CABLE Driver，它是一款免費的虛擬音源線裝置，安裝完成以後，在「聲音」的「播放」選項會新增一個虛擬裝置「CABLE Input」，「錄音」的選項會新增一個虛擬裝置「CABLE Output」，這樣子就可以做一個LoopBack。</p>
+            <h4>NB筆電(作業系統為WIN)</h4>
+            <p>我們要先安裝一個虛擬音源線VB-CABLE Driver，它是一款免費的虛擬音源線裝置，安裝完成以後，在「聲音」的「播放」選項會新增一個虛擬裝置「CABLE Input」，「錄音」的選項會新增一個虛擬裝置「CABLE Output」，這樣子就可以做一個聲音迴路(LoopBack)。</p>
             <p>
                 <ol>
                     <li>去<a href="https://www.vb-audio.com/Cable/" title="VB-CABLE Driver官方網站(另開新視窗)" target="_blank">官方網址</a>下載VB-CABLE Driver的Win版本。
@@ -193,7 +116,7 @@
                             <figcaption>選擇「播放」的索引標籤，選擇「CABLE Input」，點選「設為預設值」，再按「確定」。</figcaption>
                         </figure>
                     </li>
-                    <li>這時候，喇叭放出來的聲音會是CABLE Input，麥克風收到的聲音會是CABLE Output，就變成一個LoopBack了。</li>
+                    <li>這時候，喇叭放出來的聲音會是CABLE Input，麥克風收到的聲音會是CABLE Output，就變成一個聲音迴路(LoopBack)了。</li>
                     <li>用Chrome開啟影片網址，再從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，此時會跳出這個畫面，任選一個都可以Work。
                         <figure>
                             <img src="img/nb_07.png" alt="從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，任選一個都可以Work。">
@@ -205,6 +128,7 @@
         </section>
         
         <section id="mac" class="tab">
+            <h4>Mac裝置(MacBook/iMac)</h4>
             <p>步驟跟NB筆電(作業系統為WIN)相同，都要先安裝一個虛擬音源線VB-CABLE Driver。</p>
             <p>
                 <ol>
@@ -245,7 +169,7 @@
                             <figcaption>在Google Meet的設定，也是把麥克風跟喇叭都設定為「VB-Cable(Virtual)</figcaption>
                         </figure>
                     </li>
-                    <li>這時候，喇叭放出來的聲音會是VB-Cable(Virtual)，麥克風收到的聲音會是VB-Cable(Virtual)，就變成一個LoopBack了。</li>
+                    <li>這時候，喇叭放出來的聲音會是VB-Cable(Virtual)，麥克風收到的聲音會是VB-Cable(Virtual)，就變成一個聲音迴路(LoopBack)了。</li>
                     <li>用Chrome開啟影片網址，再從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，點選VB-Cable(Virtual)後就可以Work。
                         <figure>
                             <img src="img/mac_07.png" alt="從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，點選VB-Cable(Virtual)後就可以Work。">
@@ -265,16 +189,22 @@
             } 
             document.getElementById(targetID).style.display = "block";
         }
+
+        function removeClass(elementList, className){
+            if (elementList.length > 0) {
+                elementList.forEach(element => {
+                    if (element.classList.contains(className)) {
+                        element.classList.remove(className);
+                    }
+                });
+            }
+        }
         tabBoxShow('pc');
         let navtabItems = document.querySelectorAll('.navtabitem');
-        console.log(navtabItems);
         navtabItems.forEach(element => {
-            if (element.classList.contains("active")) {
-                element.classList.remove("active");
-
-            }
             element.addEventListener('click', function(){
                 let tabtarget = element.getAttribute('data-target');
+                removeClass(navtabItems, 'active');        
                 element.classList.add('active');
                 tabBoxShow(tabtarget);
             }, false);

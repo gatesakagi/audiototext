@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 62.5%;
+}
+body{
+    font-size: 1.7rem;
+    line-height: 1.75;
+    color: #1a1a1a;
+    font-weight: normal;
+}
+body > *{
+    font-family: 'PingFang TC','Heiti TC','LantingHei TC','LiHei Pro','微軟正黑體','Noto Sans TC','Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+.container{
+    width: 100%;
+    max-width: 100%;
+    margin: auto;
+    padding: 0 30px;
+}
+h1,h2,h3,h4,h5,h6{
+    line-height: 1.5;
+    margin: 0 0 0.5em;
+}
+h1{ font-size: 3.2rem; }
+h2{ font-size: 2.8rem; }
+h3{ font-size: 2.4rem; }
+h4{ font-size: 2.2rem; }
+h5{ font-size: 2.0rem; }
+h6{ font-size: 1.8rem; }
+p{ margin-bottom: 1em; }
+ol, ul{ margin-left: 2em; }
+img{
+    max-width: 100%;
+    vertical-align: top;
+}
+figure{
+    text-align: center;
+}
+figcaption{
+    font-size: 1.6rem;
+    color: #6A6A6A;
+    margin-bottom: 1em;
+}
+a{ color: blue; }
+a:hover{ color: red; }
+.navtab{
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    color: #000;
+    background-color: #f1f1f1;
+}
+.navtabitem{
+    flex: 0 0 100%;
+    text-align: center;
+    padding: 0.5em 0;
+    cursor: pointer;
+    color: #000;
+    font-size: 2.2rem;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.navtabitem.active{
+    background-color: #ccc;
+}
+.navtabitem:hover{
+    background-color: #ddd;
+}
+.tab{
+    padding: 1em;
+    border: 1px solid #ccc;
+}
+@media only screen and (min-width: 768px) {
+    .container{ max-width: 960px; }
+    .navtabitem{ flex: 0 0 33.3333%; }
+}
