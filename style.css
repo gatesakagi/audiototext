@@ -21,6 +21,11 @@ body > *{
     margin: auto;
     padding: 0 30px;
 }
+.updatetext{
+    font-size: 1.4rem;
+    font-weight: bold;    
+    float: right;
+}
 h1,h2,h3,h4,h5,h6{
     line-height: 1.5;
     margin: 0 0 0.5em;
@@ -76,10 +81,6 @@ a:hover{ color: red; }
     border: 1px solid #ccc;
     margin-bottom: 5em;
 }
-@media only screen and (min-width: 768px) {
-    .container{ max-width: 960px; }
-    .navtabitem{ flex: 0 0 33.3333%; }
-}
 footer{
     background-color: #333;
     color: #FFF;
@@ -96,4 +97,9 @@ footer a,
 footer a:hover{
     color: #FFF;
     text-decoration: underline;
+}
+@media only screen and (min-width: 768px) {
+    .updatetext{ margin-top: 1.6rem; }
+    .container{ max-width: 960px; }
+    .navtabitem{ flex: 0 0 33.3333%; }
 }

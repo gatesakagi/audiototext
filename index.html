@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>2021語音辨識文字說明</h1>
+        <h1>赤木於語音辨識文字經驗分享<span class="updatetext">更新時間: 2021.06.07</span></h1>
         <h2>情境及困難點說明</h2>
         <p>2021年5月19日中央流行疫情指揮中心宣布全國升至第三級疫情警戒，線下實體運動課程都暫緩了，健身房也不能去了。</p>
         <p>於是一些教練改用線上視訊的方式來開課，常用的視訊軟體有Google Meet和ZOOM。</p>
@@ -191,7 +191,7 @@
             for (let index = 0; index < tabBoxes.length; index++){
                 tabBoxes[index].style.display = 'none'; 
             } 
-            document.getElementById(targetID).style.display = "block";
+            document.getElementById(targetID).style.display = 'block';
         }
 
         function removeClass(elementList, className){
@@ -203,7 +203,6 @@
                 });
             }
         }
-        tabBoxShow('pc');
         let navtabItems = document.querySelectorAll('.navtabitem');
         navtabItems.forEach(element => {
             element.addEventListener('click', function(){
@@ -213,6 +212,7 @@
                 tabBoxShow(tabtarget);
             }, false);
         });
+        navtabItems[0].click();
     </script>
 </body>
 </html>
