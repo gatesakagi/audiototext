@@ -60,6 +60,31 @@
         }
         a{ color: blue; }
         a:hover{ color: red; }
+        .navtab{
+            display: flex;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            color: #000;
+            background-color: #f1f1f1;
+        }
+        .navtabitem{
+            flex: 0 0 33.3333%;
+            text-align: center;
+            padding: 1em 0;
+            cursor: pointer;
+        }
+        .navtabitem.active{
+            color: #FFF;
+            background-color: #616161;
+        }
+        .navtabitem:hover{
+            color: #FFF;
+            background-color: #ccc;
+        }
+        .tab{
+            border: 1px solid #ccc;
+        }
+        
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-198875216-1"></script>
@@ -90,133 +115,170 @@
         <h4>Google Meet</h4>
         <p>Google Meet登入後，會在畫面左下角看到雅婷逐字稿的圖示，直接點選開啟就可以馬上使用，相當方便。</p>
         <h4>ZOOM、FB視訊、Youtube等網路直播或影片</h4>
-        <p>我用<a href="#pc">PC桌機</a>、<a href="#nb">NB筆電(作業系統為WIN)</a>、<a href="#mac">macbook筆電</a>這3個裝置來說明，但我先說明一下原理：</p>
+        <p>我用<a href="#pc">PC桌機</a>、<a href="#nb">NB筆電(作業系統為WIN)</a>、<a href="#mac">macbook/iMac</a>這3個裝置來說明，但我先說明一下原理：</p>
         <h5>原理說明</h5>
         <p>音源輸出(Audio Output)：就是喇叭，放出影片的聲音。</p>
         <p>音源輸入(Audio Input)：就是麥克風，把聲音收進來。</p>
         <p>所以我們要做的事情，就是把ZOOM、FB視訊、Youtube等網路直播或影片放出來的聲音，從喇叭輸出轉到麥克風輸入，給雅婷逐字稿跑語音辨識文字。</p>
-        <p>這個概念就叫做迴路(LoopBack)。</p>
-        <a name="pc"></a><h5>一、PC桌機</h5>
-        <p>這部分最好做，直接用音源線做硬體的LoopBack。</p>
-        <p>
-            <ol>
-                <li>找1條3.5mm音源線(公對公)分別插在麥克風孔跟喇叭孔就完工了!!</li>
-                <li>用Chrome開啟影片網址，再從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿</li>
-                <li>影片播放時，就會把聲音透過喇叭孔傳到麥克風孔，雅婷逐字稿收到聲音時就會開始工作了</li>
-            </ol>
-        </p>
-        <figure>
-            <img src="img/pc_01.png" alt="麥克風孔(粉紅色環)、喇叭孔(綠色環)、音源輸入(藍色環)">
-            <figcaption>麥克風孔(粉紅色環)、喇叭孔(綠色環)、音源輸入(藍色環)</figcaption>
-        </figure>
-        <figure>
-            <img src="img/pc_02.png" alt="3.5mm音源線(公對公)">
-            <figcaption>3.5mm音源線(公對公)</figcaption>
-        </figure>
-        <figure>
-            <img src="img/pc_03.png" alt="音源線插上麥克風孔及喇叭孔">
-            <figcaption>音源線插上麥克風孔及喇叭孔</figcaption>
-        </figure>
-        <a name="nb"></a><h5>二、NB筆電(作業系統為WIN)</h5>
-        <p>我們要先安裝一個虛擬音源線VB-CABLE Driver，它是一款免費的虛擬音源線裝置，安裝完成以後，在「聲音」的「播放」選項會新增一個虛擬裝置「CABLE Input」，「錄音」的選項會新增一個虛擬裝置「CABLE Output」，這樣子就可以做一個LoopBack。</p>
-        <p>
-            <ol>
-                <li>去<a href="https://www.vb-audio.com/Cable/" title="VB-CABLE Driver官方網站(另開新視窗)" target="_blank">官方網址</a>下載VB-CABLE Driver的Win版本。
-                <figure>
-                    <img src="img/nb_01.png" alt="VB-CABLE Driver官方網站">
-                    <figcaption>VB-CABLE Driver官方網站</figcaption>
-                </figure>
-                </li>            
-                <li>下載檔案是ZIP壓縮檔，可以用WIN10內建的解壓縮功能，解壓縮後會看到一個名為「VBCABLE_Driver_Pack43」的目錄。
+        <p>這個架構就叫做迴路(LoopBack)。</p>
+
+        <nav class="navtab">
+            <div class="navtabitem" data-target="pc">PC桌機</div>
+            <div class="navtabitem" data-target="nb">NB筆電(作業系統為WIN)</div>
+            <div class="navtabitem" data-target="mac">macbook/iMac</div>
+        </nav>
+
+
+        <section id="pc" class="tab">
+            <p>這部分最好做，直接用音源線做硬體的LoopBack。</p>
+            <p>
+                <ol>
+                    <li>找1條3.5mm音源線(公對公)分別插在麥克風孔跟喇叭孔就完工了!!</li>
+                    <li>用Chrome開啟影片網址，再從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿</li>
+                    <li>影片播放時，就會把聲音透過喇叭孔傳到麥克風孔，雅婷逐字稿收到聲音時就會開始工作了</li>
+                </ol>
+            </p>
+            <figure>
+                <img src="img/pc_01.png" alt="麥克風孔(粉紅色環)、喇叭孔(綠色環)、音源輸入(藍色環)">
+                <figcaption>麥克風孔(粉紅色環)、喇叭孔(綠色環)、音源輸入(藍色環)</figcaption>
+            </figure>
+            <figure>
+                <img src="img/pc_02.png" alt="3.5mm音源線(公對公)">
+                <figcaption>3.5mm音源線(公對公)</figcaption>
+            </figure>
+            <figure>
+                <img src="img/pc_03.png" alt="音源線插上麥克風孔及喇叭孔">
+                <figcaption>音源線插上麥克風孔及喇叭孔</figcaption>
+            </figure>
+        </section> 
+        
+        <section id="nb" class="tab">
+            <p>我們要先安裝一個虛擬音源線VB-CABLE Driver，它是一款免費的虛擬音源線裝置，安裝完成以後，在「聲音」的「播放」選項會新增一個虛擬裝置「CABLE Input」，「錄音」的選項會新增一個虛擬裝置「CABLE Output」，這樣子就可以做一個LoopBack。</p>
+            <p>
+                <ol>
+                    <li>去<a href="https://www.vb-audio.com/Cable/" title="VB-CABLE Driver官方網站(另開新視窗)" target="_blank">官方網址</a>下載VB-CABLE Driver的Win版本。
                     <figure>
-                        <img src="img/nb_02.png" alt="解壓縮目錄">
-                        <figcaption>解壓縮目錄</figcaption>
+                        <img src="img/nb_01.png" alt="VB-CABLE Driver官方網站">
+                        <figcaption>VB-CABLE Driver官方網站</figcaption>
                     </figure>
-                </li>  
-                <li>如果你WIN版本是64位元，安裝「VBCABLE_Setup_x64」這個檔案；反之安裝「VBCABLE_Setup」這個檔案，按滑鼠右鍵，選擇「以系統管理員身分執行」。
+                    </li>            
+                    <li>下載檔案是ZIP壓縮檔，可以用WIN10內建的解壓縮功能，解壓縮後會看到一個名為「VBCABLE_Driver_Pack43」的目錄。
+                        <figure>
+                            <img src="img/nb_02.png" alt="解壓縮目錄">
+                            <figcaption>解壓縮目錄</figcaption>
+                        </figure>
+                    </li>  
+                    <li>如果你WIN版本是64位元，安裝「VBCABLE_Setup_x64」這個檔案；反之安裝「VBCABLE_Setup」這個檔案，按滑鼠右鍵，選擇「以系統管理員身分執行」。
+                        <figure>
+                            <img src="img/nb_03.png" alt="按滑鼠右鍵，選擇「以系統管理員身分執行」">
+                            <figcaption>按滑鼠右鍵，選擇「以系統管理員身分執行」</figcaption>
+                        </figure>
+                    </li>
+                    <li>依照畫面指示安裝，到最後會請你重開機來完成安裝程序。</li>
+                    <li>重開機後，在工作列上面的聲音圖示按滑鼠右鍵，點選「音效」。
+                        <figure>
+                            <img src="img/nb_04.png" alt="按滑鼠右鍵，選擇「以系統管理員身分執行」">
+                            <figcaption>按滑鼠右鍵，選擇「以系統管理員身分執行」</figcaption>
+                        </figure>
+                    </li>
+                    <li>選擇「錄製」的索引標籤，選擇「CABLE Output」，點選「設為預設值」，再按「確定」。
+                        <figure>
+                            <img src="img/nb_05.png" alt="選擇「錄製」的索引標籤，選擇「CABLE Output」，點選「設為預設值」，再按「確定」。">
+                            <figcaption>選擇「錄製」的索引標籤，選擇「CABLE Output」，點選「設為預設值」，再按「確定」。</figcaption>
+                        </figure>
+                    </li>
+                    <li>選擇「播放」的索引標籤，選擇「CABLE Input」，點選「設為預設值」，再按「確定」。
+                        <figure>
+                            <img src="img/nb_06.png" alt="選擇「播放」的索引標籤，選擇「CABLE Input」，點選「設為預設值」，再按「確定」。">
+                            <figcaption>選擇「播放」的索引標籤，選擇「CABLE Input」，點選「設為預設值」，再按「確定」。</figcaption>
+                        </figure>
+                    </li>
+                    <li>這時候，喇叭放出來的聲音會是CABLE Input，麥克風收到的聲音會是CABLE Output，就變成一個LoopBack了。</li>
+                    <li>用Chrome開啟影片網址，再從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，此時會跳出這個畫面，任選一個都可以Work。
+                        <figure>
+                            <img src="img/nb_07.png" alt="從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，任選一個都可以Work。">
+                            <figcaption>從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，任選一個都可以Work。</figcaption>
+                        </figure>
+                    </li>
+                </ol>
+            </p>
+        </section>
+        
+        <section id="mac" class="tab">
+            <p>步驟跟NB筆電(作業系統為WIN)相同，都要先安裝一個虛擬音源線VB-CABLE Driver。</p>
+            <p>
+                <ol>
+                    <li>去<a href="https://www.vb-audio.com/Cable/" title="VB-CABLE Driver官方網站(另開新視窗)" target="_blank">官方網址</a>下載VB-CABLE Driver的Mac版本。
                     <figure>
-                        <img src="img/nb_03.png" alt="按滑鼠右鍵，選擇「以系統管理員身分執行」">
-                        <figcaption>按滑鼠右鍵，選擇「以系統管理員身分執行」</figcaption>
+                        <img src="img/mac_01.png" alt="VB-CABLE Driver官方網站">
+                        <figcaption>VB-CABLE Driver官方網站</figcaption>
                     </figure>
-                </li>
-                <li>依照畫面指示安裝，到最後會請你重開機來完成安裝程序。</li>
-                <li>重開機後，在工作列上面的聲音圖示按滑鼠右鍵，點選「音效」。
-                    <figure>
-                        <img src="img/nb_04.png" alt="按滑鼠右鍵，選擇「以系統管理員身分執行」">
-                        <figcaption>按滑鼠右鍵，選擇「以系統管理員身分執行」</figcaption>
-                    </figure>
-                </li>
-                <li>選擇「錄製」的索引標籤，選擇「CABLE Output」，點選「設為預設值」，再按「確定」。
-                    <figure>
-                        <img src="img/nb_05.png" alt="選擇「錄製」的索引標籤，選擇「CABLE Output」，點選「設為預設值」，再按「確定」。">
-                        <figcaption>選擇「錄製」的索引標籤，選擇「CABLE Output」，點選「設為預設值」，再按「確定」。</figcaption>
-                    </figure>
-                </li>
-                <li>選擇「播放」的索引標籤，選擇「CABLE Input」，點選「設為預設值」，再按「確定」。
-                    <figure>
-                        <img src="img/nb_06.png" alt="選擇「播放」的索引標籤，選擇「CABLE Input」，點選「設為預設值」，再按「確定」。">
-                        <figcaption>選擇「播放」的索引標籤，選擇「CABLE Input」，點選「設為預設值」，再按「確定」。</figcaption>
-                    </figure>
-                </li>
-                <li>這時候，喇叭放出來的聲音會是CABLE Input，麥克風收到的聲音會是CABLE Output，就變成一個LoopBack了。</li>
-                <li>用Chrome開啟影片網址，再從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，此時會跳出這個畫面，任選一個都可以Work。
-                    <figure>
-                        <img src="img/nb_07.png" alt="從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，任選一個都可以Work。">
-                        <figcaption>從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，任選一個都可以Work。</figcaption>
-                    </figure>
-                </li>
-            </ol>
-        </p>
-        <a name="mac"></a><h5>三、macbook筆電</h5>
-        <p>步驟跟NB筆電(作業系統為WIN)相同，都要先安裝一個虛擬音源線VB-CABLE Driver。</p>
-        <p>
-            <ol>
-                <li>去<a href="https://www.vb-audio.com/Cable/" title="VB-CABLE Driver官方網站(另開新視窗)" target="_blank">官方網址</a>下載VB-CABLE Driver的Mac版本。
-                <figure>
-                    <img src="img/mac_01.png" alt="VB-CABLE Driver官方網站">
-                    <figcaption>VB-CABLE Driver官方網站</figcaption>
-                </figure>
-                </li>            
-                <li>下載檔案是ZIP壓縮檔，解壓縮後會看到一個名為「VBCABLE_MACDriver_Pack108」的目錄，點選「VBCable_MACDriver_Pack108.dmg」這個檔案兩下安裝。
-                    <figure>
-                        <img src="img/mac_02.png" alt="解壓縮目錄">
-                        <figcaption>解壓縮目錄</figcaption>
-                    </figure>
-                </li>  
-                <li>點選「vb-cable-installer.pkg」檔案兩下安裝，依照畫面指示安裝，完成安裝程序。
-                    <figure>
-                        <img src="img/mac_03.png" alt="點選「vb-cable-installer.pkg」檔案兩下安裝，依照畫面指示安裝，完成安裝程序。">
-                        <figcaption>點選「vb-cable-installer.pkg」檔案兩下安裝，依照畫面指示安裝，完成安裝程序。</figcaption>
-                    </figure>
-                </li>
-                <li></li>
-                <li>打開ZOOM App，點選左上角的「zoom.us」，再點選「偏好」來設定喇叭與麥克風。
-                    <figure>
-                        <img src="img/mac_04.png" alt="打開ZOOM App，點選左上角的「zoom.us」，再點選「偏好」來設定喇叭與麥克風。">
-                        <figcaption>打開ZOOM App，點選左上角的「zoom.us」，再點選「偏好」來設定喇叭與麥克風。</figcaption>
-                    </figure>
-                </li>
-                <li>在「喇叭」跟「麥克風」都點選「VB-Cable」。
-                    <figure>
-                        <img src="img/mac_05.png" alt="在「喇叭」跟「麥克風」都點選「VB-Cable」">
-                        <figcaption>在「喇叭」跟「麥克風」都點選「VB-Cable」</figcaption>
-                    </figure>
-                </li>
-                <li>在Google Meet的設定，也是把麥克風跟喇叭都設定為「VB-Cable(Virtual)」。
-                    <figure>
-                        <img src="img/mac_06.png" alt="在Google Meet的設定，也是把麥克風跟喇叭都設定為「VB-Cable(Virtual)">
-                        <figcaption>在Google Meet的設定，也是把麥克風跟喇叭都設定為「VB-Cable(Virtual)</figcaption>
-                    </figure>
-                </li>
-                <li>這時候，喇叭放出來的聲音會是VB-Cable(Virtual)，麥克風收到的聲音會是VB-Cable(Virtual)，就變成一個LoopBack了。</li>
-                <li>用Chrome開啟影片網址，再從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，點選VB-Cable(Virtual)後就可以Work。
-                    <figure>
-                        <img src="img/mac_07.png" alt="從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，點選VB-Cable(Virtual)後就可以Work。">
-                        <figcaption>從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，點選VB-Cable(Virtual)後就可以Work。</figcaption>
-                    </figure>
-                </li>
-            </ol>
-        </p>
+                    </li>            
+                    <li>下載檔案是ZIP壓縮檔，解壓縮後會看到一個名為「VBCABLE_MACDriver_Pack108」的目錄，點選「VBCable_MACDriver_Pack108.dmg」這個檔案兩下安裝。
+                        <figure>
+                            <img src="img/mac_02.png" alt="解壓縮目錄">
+                            <figcaption>解壓縮目錄</figcaption>
+                        </figure>
+                    </li>  
+                    <li>點選「vb-cable-installer.pkg」檔案兩下安裝，依照畫面指示安裝，完成安裝程序。
+                        <figure>
+                            <img src="img/mac_03.png" alt="點選「vb-cable-installer.pkg」檔案兩下安裝，依照畫面指示安裝，完成安裝程序。">
+                            <figcaption>點選「vb-cable-installer.pkg」檔案兩下安裝，依照畫面指示安裝，完成安裝程序。</figcaption>
+                        </figure>
+                    </li>
+                    <li></li>
+                    <li>打開ZOOM App，點選左上角的「zoom.us」，再點選「偏好」來設定喇叭與麥克風。
+                        <figure>
+                            <img src="img/mac_04.png" alt="打開ZOOM App，點選左上角的「zoom.us」，再點選「偏好」來設定喇叭與麥克風。">
+                            <figcaption>打開ZOOM App，點選左上角的「zoom.us」，再點選「偏好」來設定喇叭與麥克風。</figcaption>
+                        </figure>
+                    </li>
+                    <li>在「喇叭」跟「麥克風」都點選「VB-Cable」。
+                        <figure>
+                            <img src="img/mac_05.png" alt="在「喇叭」跟「麥克風」都點選「VB-Cable」">
+                            <figcaption>在「喇叭」跟「麥克風」都點選「VB-Cable」</figcaption>
+                        </figure>
+                    </li>
+                    <li>在Google Meet的設定，也是把麥克風跟喇叭都設定為「VB-Cable(Virtual)」。
+                        <figure>
+                            <img src="img/mac_06.png" alt="在Google Meet的設定，也是把麥克風跟喇叭都設定為「VB-Cable(Virtual)">
+                            <figcaption>在Google Meet的設定，也是把麥克風跟喇叭都設定為「VB-Cable(Virtual)</figcaption>
+                        </figure>
+                    </li>
+                    <li>這時候，喇叭放出來的聲音會是VB-Cable(Virtual)，麥克風收到的聲音會是VB-Cable(Virtual)，就變成一個LoopBack了。</li>
+                    <li>用Chrome開啟影片網址，再從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，點選VB-Cable(Virtual)後就可以Work。
+                        <figure>
+                            <img src="img/mac_07.png" alt="從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，點選VB-Cable(Virtual)後就可以Work。">
+                            <figcaption>從Chrome工具列叫出雅婷逐字稿，新增一個逐字稿時，會跳出這個畫面，點選VB-Cable(Virtual)後就可以Work。</figcaption>
+                        </figure>
+                    </li>
+                </ol>
+            </p>
+        </section>
     </div>
+
+    <script>
+        function tabBoxShow(targetID){
+            let tabBoxes = document.getElementsByClassName('tab');
+            for (let index = 0; index < tabBoxes.length; index++){
+                tabBoxes[index].style.display = 'none'; 
+            } 
+            document.getElementById(targetID).style.display = "block";
+        }
+        tabBoxShow('pc');
+        let navtabItems = document.querySelectorAll('.navtabitem');
+        console.log(navtabItems);
+        navtabItems.forEach(element => {
+            if (element.classList.contains("active")) {
+                element.classList.remove("active");
+
+            }
+            element.addEventListener('click', function(){
+                let tabtarget = element.getAttribute('data-target');
+                element.classList.add('active');
+                tabBoxShow(tabtarget);
+            }, false);
+        });
+    </script>
 </body>
 </html>
