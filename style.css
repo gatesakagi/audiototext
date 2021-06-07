@@ -59,6 +59,8 @@ a:hover{ color: red; }
     border-bottom: none;
     color: #000;
     background-color: #f1f1f1;
+    position: sticky;
+    top: 0;
 }
 .navtabitem{
     flex: 0 0 100%;
@@ -69,6 +71,9 @@ a:hover{ color: red; }
     font-size: 2.2rem;
     font-weight: bold;
     transition: 0.3s;
+}
+.navtabitem + .navtabitem{
+    border-left: 1px solid #ccc;
 }
 .navtabitem.active{
     background-color: #ccc;
